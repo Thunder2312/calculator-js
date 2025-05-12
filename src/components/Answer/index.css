@@ -1,0 +1,20 @@
+.answer {
+    width: 100%;
+    padding-top: 3%;
+    padding-left: 3%;
+    padding-right: 2%;
+    box-sizing: border-box;
+    height: 20%;
+  }
+  
+  .answer input[type='text'] {
+    font-size: xx-large;
+    width: 98%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    text-align: right;
+  }
+  
