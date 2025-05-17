@@ -16,12 +16,11 @@ const Instructions = () => {
       <p>To clear the entire display, click the <code>AC</code> button or press the <code>Delete</code> key on your keyboard.</p>
 
       <p><strong>4. Delete the Last Character:</strong></p>
-      <p>To remove the last character or operator entered, press the <code>Backspace</code> key on your keyboard.</p>
+      <p>To remove the last character or operator entered, click the &lt;- button or press the <code>Backspace</code> key on your keyboard.</p>
 
-      <p><strong>5. Special Functions:</strong></p>
+      <p><strong>5. Special Function:</strong></p>
       <p><code>x^2</code>: Square the current number.</p>
-      <p><code>x^y</code>: Raise a number to the power of another number.</p>
-
+  
       <p><strong>Error Handling:</strong></p>
       <p>If you input an invalid calculation (like only <code>=</code>), the display will show an "Error" message. Try to make sure your input is valid, and feel free to clear and start over if needed!</p>
     </div>
