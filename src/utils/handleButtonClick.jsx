@@ -10,7 +10,7 @@ export const handleButtonClick = (value, display, setDisplay) => {
     } catch (error) {
       setDisplay('Error');
     }
-  } else if (value === 'C') {
+  } else if (value === 'AC') {
     setDisplay('');
   } else {
     setDisplay((prevDisplay) => {

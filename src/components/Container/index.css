@@ -1,18 +1,37 @@
-/* Ensuring the body takes up the full height of the viewport */
+/* Apply box-sizing globally */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 100vh; /* Full height of the viewport */
-  margin: 0;
-  background-image: linear-gradient(315deg, #fbb034 0%, #ffdd00 74%); /* Remove default margin */
+  justify-content: center; /* Center everything horizontally */
+  align-items: center; /* Center everything vertically */
+  min-height: 100vh; /* Ensure the body takes up the full height of the viewport */
+  margin: 0; /* Remove default margin */
+  background-image: linear-gradient(to bottom, #fbb034 0%, #ffdd00 74%);
+  flex-direction: column; /* Stack the container and instructions vertically */
+  text-align: center; /* Center the content of both components */
 }
+
+/* .container style */
 .container {
   display: flex;
   flex-direction: column;
-  width: 300px;
-  height: 400px;
+  align-items: center; /* Center child elements horizontally */
+  justify-content: center; /* Center child elements vertically */
+  width: 40%;
+  max-width: 800px; /* Limit the width to a maximum value */
   background: black;
-  border-radius: 5%;
-  margin: auto; /* This is no longer needed, as the body flex will center the container */
+  border-radius: 8px;
+  padding: 10px;/* Prevent content from overflowing */
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+/* Responsive design for .container - For smaller screens */
+@media (max-width: 768px) {
+  .container {
+    width: 90%; /* Take up 90% of the screen width */
+    padding: 15px; /* Adjust padding for small screens */
+  }
 }

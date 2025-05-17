@@ -15,4 +15,3 @@ const Answer = ({ display }) => {
 };
 
 export default Answer; 
-

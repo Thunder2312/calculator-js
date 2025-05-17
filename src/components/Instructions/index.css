@@ -1,0 +1,44 @@
+.instructions {
+  background-color: black;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100vw; /* Default width for larger screens */
+  box-sizing: border-box; /* Ensure padding is included in the width */
+  color: #fff; /* Make sure the text is readable */
+}
+
+.instructions h2 {
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.instructions p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.instructions code {
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+
+/* Centering with flexbox for smaller screens */
+@media (max-width: 768px) {
+  .instructions {
+    width: 90%; /* Take up 90% of the screen width */
+    padding: 15px; /* Adjust padding on smaller screens */
+    margin: 0 auto; /* Center horizontally by setting left and right margins to auto */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+  }
+
+  .instructions p {
+    font-size: 1rem;
+    margin: 10px 0;
+  }
+}
+
+

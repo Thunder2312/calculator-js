@@ -4,6 +4,7 @@ import Answer from './components/Answer';
 import Container from './components/Container';
 import { handleButtonClick } from './utils/handleButtonClick';
 import { handleKeyPress } from './utils/handleKeyPress';
+import Instructions from './components/Instructions';  // Import Instructions
 
 const App = () => {
   const [display, setDisplay] = useState('');
@@ -20,10 +21,13 @@ const App = () => {
   }, [display]);
 
   return (
-    <Container>
-      <Answer display={display} />
-      <ButtonContainer onButtonClick={onButtonClick} />
-    </Container>
+    <>
+      <Container>
+        <Answer display={display} />
+        <ButtonContainer onButtonClick={onButtonClick} />
+      </Container>
+      <Instructions/>
+    </>
   );
 };
 
