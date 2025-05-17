@@ -37,7 +37,7 @@ export const handleButtonClick = (value, display, setDisplay) => {
         return prevDisplay + '0.';
       }
 
-      if (value === 'x^y') return prevDisplay + '^';
+      if (value === 'x^2') return prevDisplay + '^2';
 
       return prevDisplay + value;
     });
