@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.css'; // Optional: If you want to add some custom styling to the instructions.
+import './index.css'; 
 
 const Instructions = () => {
   return (
