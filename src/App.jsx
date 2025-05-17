@@ -3,7 +3,7 @@ import ButtonContainer from './components/ButtonContainer';
 import Answer from './components/Answer';
 import Container from './components/Container';
 import Instructions from './components/Instructions';
-import MobileInput from './components/MobileInput'; // 
+import MobileInput from './components/MobileInput.jsx'; // 
 import { handleButtonClick } from './utils/handleButtonClick';
 import { handleKeyPress } from './utils/handleKeyPress';
 
