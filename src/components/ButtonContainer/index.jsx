@@ -7,7 +7,7 @@ const buttons = {
   row2: ['2', '3', '4', '5'],
   row3: ['0', '1', '.', '+'],
   row4: ['*', '-', '/', '='],
-  row5: ['%', 'x^2', 'x^y', 'AC']
+  row5: ['%', 'x^2', '<-', 'AC']
 };
 
 const ButtonContainer = ({ onButtonClick }) => {

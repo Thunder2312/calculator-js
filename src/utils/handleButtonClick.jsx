@@ -12,6 +12,8 @@ export const handleButtonClick = (value, display, setDisplay) => {
     }
   } else if (value === 'AC') {
     setDisplay('');
+  } else if (value === '<-') {
+    setDisplay((prevDisplay) => prevDisplay.slice(0, -1));
   } else {
     setDisplay((prevDisplay) => {
       const lastChar = prevDisplay.slice(-1);
@@ -35,7 +37,6 @@ export const handleButtonClick = (value, display, setDisplay) => {
         return prevDisplay + '0.';
       }
 
-      if (value === 'x^2') return prevDisplay + '^2';
       if (value === 'x^y') return prevDisplay + '^';
 
       return prevDisplay + value;
