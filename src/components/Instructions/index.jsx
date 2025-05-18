@@ -6,7 +6,7 @@ const Instructions = () => {
     <div className="instructions">
       <h2>How to Use the Calculator</h2>
       <p><strong>1. Input Numbers & Operators:</strong></p>
-      <p>Click on the buttons or use your keyboard to enter numbers, operators (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, <code>^</code>), and special functions like <code>x^2</code> or <code>x^y</code>.</p>
+      <p>Click on the buttons or use your keyboard to enter numbers, operators (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, <code>^</code>), and special function like <code>x^2</code>.</p>
       <p>Use the <code>.</code> button for decimal points.</p>
 
       <p><strong>2. Perform Calculations:</strong></p>
