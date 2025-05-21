@@ -3,11 +3,11 @@ import './index.css';
 
 // Define buttons as an object
 const buttons = {
-  row1: ['6', '7', '8', '9'],
-  row2: ['2', '3', '4', '5'],
-  row3: ['0', '1', '.', '+'],
-  row4: ['*', '-', '/', '='],
-  row5: ['%', 'x^2', '<-', 'AC']
+  row1: ['AC','.','/','%'],
+  row2: ['0','x^2','<-','*'],
+  row3: ['7', '8', '9', '-'],
+  row4: ['4', '5', '6', '+'],
+  row5: ['1', '2', '3', '=']
 };
 
 const ButtonContainer = ({ onButtonClick }) => {
