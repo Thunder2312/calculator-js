@@ -1,6 +1,6 @@
 .numbers {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 buttons per row */
+  grid-template-columns: repeat(4, 1fr);
   gap: 5px;
   padding: 10px;
   width: 100%;
@@ -9,7 +9,7 @@
 }
 
 .button-row {
-  display: contents; /* Make the row act as if it’s not a container for a grid */
+  display: contents;
 }
 
 .numbers button {
@@ -17,12 +17,36 @@
   padding: 8px;
   border: none;
   border-radius: 8px;
-  background-color: aqua;
-  color: black;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
-.numbers button:hover {
-  background-color: aquamarine;
+/* Functional buttons */
+.functional-button {
+  background-color: orange;
+  color: white;
+}
+
+.functional-button:hover {
+  background-color: darkorange;
+}
+
+/* Number buttons */
+.number-button {
+  background-color: lightblue;
+  color: black;
+}
+
+.number-button:hover {
+  background-color: deepskyblue;
+}
+
+/* Operator buttons */
+.operator-button {
+  background-color: green;
+  color: white;
+}
+
+.operator-button:hover {
+  background-color: grey;
 }

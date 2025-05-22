@@ -4,10 +4,9 @@ export const handleKeyPress = (event, display, setDisplay, inputRef) => {
   const key = event.key;
   const operators = ['+', '-', '*', '/', '%', '^'];
 
-  // Check if the inputRef is valid (it's an input or textarea)
   const input = inputRef.current;
   if (!input || !(input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement)) {
-    return; // If inputRef is not a valid input element, do nothing
+    return; 
   }
 
   const start = input.selectionStart;
@@ -16,11 +15,9 @@ export const handleKeyPress = (event, display, setDisplay, inputRef) => {
   const lastChar = display.slice(-1);
   const lastNumberSegment = display.split(/[\+\-\*\/\%\^]/).pop();
 
-  // Handle "Enter" key (evaluation)
   if (key === 'Enter') {
     event.preventDefault();
 
-    // Make sure we have a valid expression to evaluate
     const sanitizedDisplay = display.trim();
     if (!sanitizedDisplay) {
       setDisplay('Error');
@@ -28,7 +25,6 @@ export const handleKeyPress = (event, display, setDisplay, inputRef) => {
     }
 
     try {
-      // Evaluate the expression safely
       const result = evaluate(sanitizedDisplay);
       setDisplay(result.toString());
     } catch (error) {
@@ -37,14 +33,13 @@ export const handleKeyPress = (event, display, setDisplay, inputRef) => {
     return;
   }
 
-  // Handle "Backspace" key (delete one character before cursor)
   if (key === 'Backspace') {
-    if (start === 0) return; // Don't delete at the start
+    if (start === 0) return; 
 
     const newValue = display.slice(0, start - 1) + display.slice(end);
     setDisplay(newValue);
 
-    // Update cursor position after delete
+    
     requestAnimationFrame(() => {
       input.setSelectionRange(start - 1, start - 1);
       input.focus();
@@ -52,7 +47,7 @@ export const handleKeyPress = (event, display, setDisplay, inputRef) => {
     return;
   }
 
-  // Handle "Delete" key (delete one character at cursor position)
+ 
   if (key === 'Delete') {
     if (start === end) return; // If there's no selection, we don't delete
 

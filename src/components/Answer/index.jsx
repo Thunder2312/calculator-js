@@ -5,12 +5,10 @@ const Answer = ({ display, inputRef }) => {
   return (
     <div className="answer">
       <input
-        ref={inputRef}  // Assign ref for cursor management
+        ref={inputRef}  
         type="text"
-        value={display}
-           // Prevent typing directly into the input (managed by handleKeyPress)
+        value={display}    
         autoFocus
-         // Style as needed
       />
     </div>
   );

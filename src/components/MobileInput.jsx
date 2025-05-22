@@ -43,7 +43,6 @@ const MobileInput = ({ display, setDisplay }) => {
     }, 0);
   };
 
-  // Expose functions to global scope or app context
   window.__mobileInputControl = {
     insertAtCursor,
     deleteAtCursor,
