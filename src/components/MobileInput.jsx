@@ -1,37 +1,62 @@
-import React from 'react';
-import { evaluate } from 'mathjs';
+import React, { useRef, useEffect } from 'react';
 
 const MobileInput = ({ display, setDisplay }) => {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   const handleChange = (e) => {
     setDisplay(e.target.value);
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      try {
-        const result = evaluate(display);
-        setDisplay(result.toString());
-      } catch {
-        setDisplay('Error');
-      }
-    }
+  const insertAtCursor = (value) => {
+    const input = inputRef.current;
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+
+    const newValue = display.slice(0, start) + value + display.slice(end);
+    setDisplay(newValue);
+
+    setTimeout(() => {
+      input.setSelectionRange(start + value.length, start + value.length);
+      input.focus();
+    }, 0);
+  };
+
+  const deleteAtCursor = () => {
+    const input = inputRef.current;
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+
+    if (start === 0) return;
+
+    const newValue = display.slice(0, start - 1) + display.slice(end);
+    setDisplay(newValue);
+
+    setTimeout(() => {
+      input.setSelectionRange(start - 1, start - 1);
+      input.focus();
+    }, 0);
+  };
+
+  // Expose functions to global scope or app context
+  window.__mobileInputControl = {
+    insertAtCursor,
+    deleteAtCursor,
+    inputRef,
   };
 
   return (
     <input
+      ref={inputRef}
       type="text"
       value={display}
       onChange={handleChange}
-      onKeyDown={handleKeyDown}
-      placeholder="Enter calculation"
-      inputMode="decimal"
-      style={{
-        fontSize: '1.5rem',
-        width: '100%',
-        padding: '0.5rem',
-        marginBottom: '1rem',
-        boxSizing: 'border-box',
-      }}
+      style={{ fontSize: '24px', width: '100%', padding: '10px' }}
     />
   );
 };
