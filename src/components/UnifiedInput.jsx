@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from 'react';
+import { handleKeyPress } from '../utils/handleKeyPress';
 
-const MobileInput = ({ display, setDisplay }) => {
-  const inputRef = useRef(null);
+const UnifiedInput = ({ display, setDisplay, wasEvaluated, setWasEvaluated, inputRef }) => {
+  const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -9,8 +10,19 @@ const MobileInput = ({ display, setDisplay }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (!isMobileDevice) {
+      const onKeyPress = (event) =>
+        handleKeyPress(event, display, setDisplay, inputRef, wasEvaluated, setWasEvaluated);
+
+      window.addEventListener('keydown', onKeyPress);
+      return () => window.removeEventListener('keydown', onKeyPress);
+    }
+  }, [display, isMobileDevice, wasEvaluated]);
+
   const handleChange = (e) => {
     setDisplay(e.target.value);
+    setWasEvaluated(false);
   };
 
   const insertAtCursor = (value) => {
@@ -21,10 +33,12 @@ const MobileInput = ({ display, setDisplay }) => {
     const newValue = display.slice(0, start) + value + display.slice(end);
     setDisplay(newValue);
 
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       input.setSelectionRange(start + value.length, start + value.length);
       input.focus();
-    }, 0);
+    });
+
+    setWasEvaluated(false);
   };
 
   const deleteAtCursor = () => {
@@ -37,17 +51,21 @@ const MobileInput = ({ display, setDisplay }) => {
     const newValue = display.slice(0, start - 1) + display.slice(end);
     setDisplay(newValue);
 
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       input.setSelectionRange(start - 1, start - 1);
       input.focus();
-    }, 0);
+    });
+
+    setWasEvaluated(false);
   };
 
-  window.__mobileInputControl = {
-    insertAtCursor,
-    deleteAtCursor,
-    inputRef,
-  };
+  useEffect(() => {
+    window.__mobileInputControl = {
+      insertAtCursor,
+      deleteAtCursor,
+      inputRef,
+    };
+  }, [display]);
 
   return (
     <input
@@ -60,4 +78,4 @@ const MobileInput = ({ display, setDisplay }) => {
   );
 };
 
-export default MobileInput;
+export default UnifiedInput;

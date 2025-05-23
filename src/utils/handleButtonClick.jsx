@@ -1,49 +1,54 @@
 import { evaluate } from 'mathjs';
 
-export const handleButtonClick = (value, display, setDisplay) => {
+export const handleButtonClick = (value, display, setDisplay, wasEvaluated, setWasEvaluated) => {
   const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
   const operators = ['+', '-', '*', '/', '%', '^'];
 
   if (value === '=') {
-    // Evaluate the expression when '=' is pressed
     try {
       const result = evaluate(display);
       setDisplay(result.toString());
+      setWasEvaluated(true);
     } catch (error) {
       setDisplay('Error');
+      setWasEvaluated(true);
     }
     return;
   }
 
   if (value === 'AC') {
-    // Clear the display when 'AC' is pressed
     setDisplay('');
+    setWasEvaluated(false);
     return;
   }
 
   if (value === '<-') {
-    // Backspace logic (remove last character)
     if (isMobileDevice && window.__mobileInputControl) {
       window.__mobileInputControl.deleteAtCursor();
-      return;
     } else {
-      setDisplay((prevDisplay) => prevDisplay.slice(0, -1));
-      return;
+      setDisplay((prev) => prev.slice(0, -1));
     }
-  }
-
-  if (isMobileDevice && window.__mobileInputControl) {
-    // Handle mobile input cursor position
-    window.__mobileInputControl.insertAtCursor(value);
+    setWasEvaluated(false);
     return;
   }
 
-  // Desktop logic (fallback)
+  if (isMobileDevice && window.__mobileInputControl) {
+    window.__mobileInputControl.insertAtCursor(value);
+    setWasEvaluated(false);
+    return;
+  }
+
+  // If last action was evaluation, clear display before adding new input
+  if (wasEvaluated) {
+    setDisplay(value);
+    setWasEvaluated(false);
+    return;
+  }
+
   setDisplay((prevDisplay) => {
     const lastChar = prevDisplay.slice(-1);
     const lastNumberSegment = prevDisplay.split(/[\+\-\*\/\%\^]/).pop();
 
-    // Prevent adding an operator if the last character is already an operator
     if (prevDisplay === '' && ['+', '*', '/', '%', '^'].includes(value)) {
       return prevDisplay;
     }
@@ -54,14 +59,12 @@ export const handleButtonClick = (value, display, setDisplay) => {
       }
     }
 
-    // Prevent adding more than one decimal point in the same number
     if (value === '.' && lastNumberSegment.includes('.')) {
       return prevDisplay;
     }
 
-    // Handle initial decimal input (e.g., '.')
     if (value === '.' && (prevDisplay === '' || operators.includes(lastChar))) {
-      return prevDisplay + '0.';  // This ensures '0.' is entered before the decimal
+      return prevDisplay + '0.';
     }
 
     if (value === 'x^2') {
@@ -70,4 +73,6 @@ export const handleButtonClick = (value, display, setDisplay) => {
 
     return prevDisplay + value;
   });
+
+  setWasEvaluated(false);
 };
