@@ -1,11 +1,11 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { handleKeyPress } from '../utils/handleKeyPress';
 
 const UnifiedInput = ({ display, setDisplay, wasEvaluated, setWasEvaluated, inputRef }) => {
   const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
 
   useEffect(() => {
-    if (inputRef.current) {
+    if (inputRef.current && !isMobileDevice) {
       inputRef.current.focus();
     }
   }, []);
@@ -30,12 +30,19 @@ const UnifiedInput = ({ display, setDisplay, wasEvaluated, setWasEvaluated, inpu
     const start = input.selectionStart;
     const end = input.selectionEnd;
 
-    const newValue = display.slice(0, start) + value + display.slice(end);
+    let newValue = display;
+
+    if (wasEvaluated) {
+      newValue = value;
+    } else {
+      newValue = display.slice(0, start) + value + display.slice(end);
+    }
+
     setDisplay(newValue);
 
     requestAnimationFrame(() => {
-      input.setSelectionRange(start + value.length, start + value.length);
-      if (document.activeElement !== input) input.focus();
+      const pos = wasEvaluated ? value.length : start + value.length;
+      input.setSelectionRange(pos, pos);
     });
 
     setWasEvaluated(false);
@@ -46,14 +53,14 @@ const UnifiedInput = ({ display, setDisplay, wasEvaluated, setWasEvaluated, inpu
     const start = input.selectionStart;
     const end = input.selectionEnd;
 
-    if (start === 0) return;
+    if (start === 0 && end === 0) return;
 
     const newValue = display.slice(0, start - 1) + display.slice(end);
     setDisplay(newValue);
 
     requestAnimationFrame(() => {
-      input.setSelectionRange(start - 1, start - 1);
-      if (document.activeElement !== input) input.focus();
+      const newPos = start - 1;
+      input.setSelectionRange(newPos, newPos);
     });
 
     setWasEvaluated(false);
@@ -65,7 +72,7 @@ const UnifiedInput = ({ display, setDisplay, wasEvaluated, setWasEvaluated, inpu
       deleteAtCursor,
       inputRef,
     };
-  }, [display]);
+  }, [display, wasEvaluated]);
 
   return (
     <input
@@ -73,7 +80,14 @@ const UnifiedInput = ({ display, setDisplay, wasEvaluated, setWasEvaluated, inpu
       type="text"
       value={display}
       onChange={handleChange}
+      onKeyDown={(event) =>
+        handleKeyPress(event, display, setDisplay, inputRef, wasEvaluated, setWasEvaluated)
+      }
       style={{ fontSize: '24px', width: '100%', padding: '10px' }}
+      inputMode="decimal"
+      autoComplete="off"
+      autoCorrect="off"
+      spellCheck="false"
     />
   );
 };

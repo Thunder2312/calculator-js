@@ -33,12 +33,17 @@ export const handleButtonClick = (value, display, setDisplay, wasEvaluated, setW
   }
 
   if (isMobileDevice && window.__mobileInputControl) {
+    if (wasEvaluated) {
+      setDisplay(value);
+      setWasEvaluated(false);
+      return;
+    }
+
     window.__mobileInputControl.insertAtCursor(value);
     setWasEvaluated(false);
     return;
   }
 
-  // If last action was evaluation, clear display before adding new input
   if (wasEvaluated) {
     setDisplay(value);
     setWasEvaluated(false);
