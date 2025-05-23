@@ -35,7 +35,7 @@ const UnifiedInput = ({ display, setDisplay, wasEvaluated, setWasEvaluated, inpu
 
     requestAnimationFrame(() => {
       input.setSelectionRange(start + value.length, start + value.length);
-      input.focus();
+      if (document.activeElement !== input) input.focus();
     });
 
     setWasEvaluated(false);
@@ -53,7 +53,7 @@ const UnifiedInput = ({ display, setDisplay, wasEvaluated, setWasEvaluated, inpu
 
     requestAnimationFrame(() => {
       input.setSelectionRange(start - 1, start - 1);
-      input.focus();
+      if (document.activeElement !== input) input.focus();
     });
 
     setWasEvaluated(false);
